@@ -2,6 +2,12 @@ import { BrowserRouter as Switch, Route } from 'react-router-dom'
 import PaymentForm from './PaymentForm'
 import Card from './Card';
 
+import ApplePay from './ApplePay';
+
+// import Giropay from './Giropay';
+import GiropayTest from './GiropayTest';
+import Fpx from './Fpx';
+
 
 const App = () => {
     return (
@@ -11,6 +17,17 @@ const App = () => {
             </Route>
             <Route path="/card" exact>
                 <Card/>
+            </Route>
+            <Route path="/apple-pay" exact>
+                <ApplePay/>
+            </Route>
+
+            <Route path="/giropay-test" exact>
+                <GiropayTest/>
+            </Route>
+            
+            <Route path="/fpx" exact>
+                <Fpx/>
             </Route>
         </Switch>
     )

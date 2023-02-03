@@ -6,9 +6,12 @@ import './App.css';
 
 const Card = () => {
 
+
     const elements = useElements();
     const stripe = useStripe();
     const [messages, addMessage] = useMessages();
+
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();

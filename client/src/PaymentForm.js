@@ -2,6 +2,9 @@ import { withRouter } from 'react-router-dom';
 import { CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 // import { IdealBankElement } from '@stripe/react-stripe-js';
 
+import './App.css';
+
+
 
 const PaymentForm = () => {
     const elements = useElements();
@@ -23,10 +26,16 @@ const PaymentForm = () => {
 
     return (
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="payment-form">
 
-            <CardElement />
-            <button>Pay</button>
+            {/* <CardElement />
+            <button>Pay</button> */}
+
+            <h3>Route: /card</h3>
+            <h3>Route: /apple-pay</h3>
+            <h3>Route: /giropay</h3>
+            <h3>Route: /giropay-test</h3>
+            <h3>Route: /fpx</h3>
 
         </form>
 
