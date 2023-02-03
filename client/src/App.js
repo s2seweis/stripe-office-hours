@@ -6,6 +6,7 @@ import ApplePay from './ApplePay';
 
 // import Giropay from './Giropay';
 import GiropayTest from './GiropayTest';
+import Confirmation from './Confirmation';
 import Fpx from './Fpx';
 
 
@@ -24,6 +25,10 @@ const App = () => {
 
             <Route path="/giropay-test" exact>
                 <GiropayTest/>
+            </Route>
+
+            <Route path="/confirmation" exact>
+                <Confirmation/>
             </Route>
             
             <Route path="/fpx" exact>

@@ -24,13 +24,15 @@ const GiropayTest = () => {
 
     // ################
 
-    // const url = new URL(window.location);
-    // console.log(url);
+    const url = new URL(window.location);
+    console.log(url);
 
 
 
-    // const params = new URLSearchParams(url.search);
-    // console.log(params);
+    const params = new URLSearchParams(url.search);
+    console.log(params);
+
+    //can see the data when doing console.log() but not acceess it at the moment !!!!!
 
     // if (params.get('redirect_status') != null) {
     //     addMessage(params.get('redirect_status'));
@@ -49,7 +51,7 @@ const GiropayTest = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        
+
 
 
         // #############################
@@ -119,7 +121,7 @@ const GiropayTest = () => {
                     name: nameInput.value,
                 },
             },
-            return_url: `${window.location.origin}/giropay-test`,
+            return_url: `${window.location.origin}/confirmation`,
 
 
 
@@ -139,9 +141,9 @@ const GiropayTest = () => {
 
 
 
-        
 
-       
+
+
 
 
 

@@ -36,6 +36,7 @@ const PaymentForm = () => {
             <h3>Route: /giropay</h3>
             <h3>Route: /giropay-test</h3>
             <h3>Route: /fpx</h3>
+            <h3>Route: /confirmation</h3>
 
         </form>
 
