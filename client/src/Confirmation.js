@@ -7,7 +7,7 @@ import './App.css';
 const Confirmation = () => {
 
 
-    
+
 
 
 
@@ -17,11 +17,29 @@ const Confirmation = () => {
 
         <>
 
-            <h1>Payment Completed</h1>
+        <a href="/">home</a>
+        <h1 style={{ textAlign:"center" }}>Confirmation</h1>
 
-            
+        <form id="payment-form" >
+            <label style={{ textAlign:"center" }} htmlFor="name">
+                Payment was successful!!!
+            </label>
 
-        </>
+            <div id="error-message" role="alert"></div>
+
+        </form>
+
+        {/* <div id="messages" role="alert"></div> */}
+
+
+
+
+    </>
+
+
+
+
+
     )
 }
 

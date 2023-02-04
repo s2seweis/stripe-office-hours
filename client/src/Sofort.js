@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
-import { useLocation, withRouter } from 'react-router-dom';
-import { FpxBankElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
 import StatusMessages, { useMessages } from './StatusMessages';
 
-const FpxForm = () => {
+const SofortForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const [name, setName] = useState('Jenny Rosen');
+  const [email, setEmail] = useState('jenny.rosen@example.com');
   const [messages, addMessage] = useMessages();
 
   const handleSubmit = async (e) => {
@@ -20,7 +22,7 @@ const FpxForm = () => {
       return;
     }
 
-    let { error: backendError, clientSecret } = await fetch(
+    const { error: backendError, clientSecret } = await fetch(
       '/create-payment-intent',
       {
         method: 'POST',
@@ -28,8 +30,8 @@ const FpxForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          paymentMethodType: 'fpx',
-          currency: 'myr',
+          paymentMethodType: 'sofort',
+          currency: 'eur',
         }),
       }
     ).then((r) => r.json());
@@ -41,15 +43,21 @@ const FpxForm = () => {
 
     addMessage('Client secret returned');
 
-    let { error: stripeError, paymentIntent } = await stripe.confirmFpxPayment(
-      clientSecret,
-      {
-        payment_method: {
-          fpx: elements.getElement(FpxBankElement),
+    const {
+      error: stripeError,
+      paymentIntent,
+    } = await stripe.confirmSofortPayment(clientSecret, {
+      payment_method: {
+        sofort: {
+          country: 'DE',
         },
-        return_url: `${window.location.origin}/fpx?return=true`,
-      }
-    );
+        billing_details: {
+          name,
+          email,
+        },
+      },
+      return_url: `${window.location.origin}/sofort?return=true`,
+    });
 
     if (stripeError) {
       // Show error to your customer (e.g., insufficient funds)
@@ -67,13 +75,26 @@ const FpxForm = () => {
 
   return (
     <>
-      <a href="/">home</a>
-
-
-      <h1>FPX</h1>
+      <h1>Sofort</h1>
 
       <form id="payment-form" onSubmit={handleSubmit}>
-        <FpxBankElement options={{ accountHolderType: 'individual' }} />
+        <label htmlFor="name">Name</label>
+        <input
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
         <button type="submit">Pay</button>
       </form>
 
@@ -84,10 +105,11 @@ const FpxForm = () => {
 
 // Component for displaying results after returning from
 // bancontact redirect flow.
-const FpxReturn = () => {
+const SofortReturn = () => {
   const stripe = useStripe();
   const [messages, addMessage] = useMessages();
 
+  // Extract the client secret from the query string params.
   const query = new URLSearchParams(useLocation().search);
   const clientSecret = query.get('payment_intent_client_secret');
 
@@ -96,11 +118,12 @@ const FpxReturn = () => {
       return;
     }
     const fetchPaymentIntent = async () => {
-      const { error, paymentIntent } = await stripe.retrievePaymentIntent(
-        clientSecret
-      );
-      if (error) {
-        addMessage(error.message);
+      const {
+        error: stripeError,
+        paymentIntent,
+      } = await stripe.retrievePaymentIntent(clientSecret);
+      if (stripeError) {
+        addMessage(stripeError.message);
       }
       addMessage(`Payment ${paymentIntent.status}: ${paymentIntent.id}`);
     };
@@ -109,19 +132,21 @@ const FpxReturn = () => {
 
   return (
     <>
-      <h1>FPX Return</h1>
+      <a href="/">home</a>
+
+      <h1>Sofort Return</h1>
       <StatusMessages messages={messages} />
     </>
   );
 };
 
-const Fpx = () => {
+const Sofort = () => {
   const query = new URLSearchParams(useLocation().search);
   if (query.get('return')) {
-    return <FpxReturn />;
+    return <SofortReturn />;
   } else {
-    return <FpxForm />;
+    return <SofortForm />;
   }
 };
 
-export default withRouter(Fpx);
+export default Sofort;

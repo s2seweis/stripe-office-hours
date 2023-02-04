@@ -11,7 +11,7 @@ const Card = () => {
     const stripe = useStripe();
     const [messages, addMessage] = useMessages();
 
-    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,6 +73,8 @@ const Card = () => {
     return (
 
         <>
+
+            <a href="/">home</a>
 
             <h1>Card</h1>
 

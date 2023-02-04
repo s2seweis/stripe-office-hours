@@ -5,9 +5,13 @@ import Card from './Card';
 import ApplePay from './ApplePay';
 
 // import Giropay from './Giropay';
-import GiropayTest from './GiropayTest';
+import Giropay from './Giropay';
 import Confirmation from './Confirmation';
 import Fpx from './Fpx';
+import GooglePay from './GooglePay';
+
+import Sofort from './Sofort';
+import Klarna from './Klarna';
 
 
 const App = () => {
@@ -23,8 +27,8 @@ const App = () => {
                 <ApplePay/>
             </Route>
 
-            <Route path="/giropay-test" exact>
-                <GiropayTest/>
+            <Route path="/giropay" exact>
+                <Giropay/>
             </Route>
 
             <Route path="/confirmation" exact>
@@ -33,6 +37,19 @@ const App = () => {
             
             <Route path="/fpx" exact>
                 <Fpx/>
+            </Route>
+
+
+            <Route path="/google-pay" exact>
+                <GooglePay/>
+            </Route>
+
+            <Route path="/sofort" exact>
+                <Sofort/>
+            </Route>
+
+            <Route path="/klarna" exact>
+                <Klarna/>
             </Route>
         </Switch>
     )

@@ -1,5 +1,5 @@
 import { withRouter } from 'react-router-dom';
-import { CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 // import { IdealBankElement } from '@stripe/react-stripe-js';
 
 import './App.css';
@@ -13,7 +13,7 @@ const PaymentForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(!stripe || !elements) {
+        if (!stripe || !elements) {
             return;
         }
 
@@ -26,20 +26,75 @@ const PaymentForm = () => {
 
     return (
 
+        <>
+            <h1 style={{ textAlign: "center" }}>Payment Methods</h1>
+
         <form onSubmit={handleSubmit} id="payment-form">
 
-            {/* <CardElement />
-            <button>Pay</button> */}
 
-            <h3>Route: /card</h3>
-            <h3>Route: /apple-pay</h3>
-            <h3>Route: /giropay</h3>
-            <h3>Route: /giropay-test</h3>
-            <h3>Route: /fpx</h3>
-            <h3>Route: /confirmation</h3>
+
+
+            <div>
+
+                <a href="/card">Route: /card</a>
+
+            </div>
+
+            <div>
+
+                <a href="/apple-pay">Route: /apple-pay</a>
+
+            </div>
+
+            <div>
+
+                <a href="/giropay">Route: /giropay</a>
+
+            </div>
+
+            <div>
+
+                <a href="/fpx">Route: /fpx</a>
+
+            </div>
+
+            <div>
+
+                <a href="/google-pay">Route: /google-pay</a>
+
+            </div>
+           
+            <div>
+ 
+               <a href="/sofort">Route: /sofort</a>
+
+            </div>
+
+            <div>
+ 
+               <a href="/klarna">Route: /klarna</a>
+
+            </div>
+
+            <div>
+
+                <a href="/confirmation">Route: /confirmation</a>
+
+            </div>
+
+            <h5>still not ready:</h5>
+
+            
+            <div>
+
+                <a href="/">Route: /paypal</a>
+
+            </div>
+
 
         </form>
 
+        </>
     )
 
 
