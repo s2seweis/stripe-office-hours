@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom';
-import {useStripe} from '@stripe/react-stripe-js';
-import StatusMessages, {useMessages} from './StatusMessages';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useStripe } from '@stripe/react-stripe-js';
+import StatusMessages, { useMessages } from './StatusMessages';
 
 const COUNTRY_CURRENCY = {
   AT: 'EUR',
@@ -36,7 +36,7 @@ const KlarnaForm = () => {
       return;
     }
 
-    const {error: backendError, clientSecret} = await fetch(
+    const { error: backendError, clientSecret } = await fetch(
       '/create-payment-intent',
       {
         method: 'POST',
@@ -57,7 +57,7 @@ const KlarnaForm = () => {
 
     addMessage('Client secret returned');
 
-    const {error: stripeError, paymentIntent} = await stripe.confirmKlarnaPayment(
+    const { error: stripeError, paymentIntent } = await stripe.confirmKlarnaPayment(
       clientSecret,
       {
         payment_method: {
@@ -148,6 +148,9 @@ const KlarnaReturn = () => {
 
   return (
     <>
+
+      <a href="/">home</a>
+
       <h1>Klarna Return</h1>
       <StatusMessages messages={messages} />
     </>
